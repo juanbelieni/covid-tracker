@@ -1,12 +1,11 @@
 import 'package:covid_tracker/app/app_controller.dart';
+import 'package:covid_tracker/app/app_provider.dart';
 import 'package:covid_tracker/app/countries/countries_controller.dart';
+import 'package:covid_tracker/app/countries/countries_provider.dart';
 import 'package:covid_tracker/domain/country/country_entity.dart';
-import 'package:covid_tracker/infra/config/api_config.dart';
-import 'package:covid_tracker/infra/repositories/country_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class CountriesView extends StatefulWidget {
   @override
@@ -14,16 +13,14 @@ class CountriesView extends StatefulWidget {
 }
 
 class _CountriesViewState extends State<CountriesView> {
-  late CountriesController countriesController;
   late AppController appController;
+  late CountriesController countriesController;
 
   List<Country>? get countries => countriesController.countries.value;
 
   _CountriesViewState() {
-    final countryRepository = CountryRepository(api: api);
-    countriesController = CountriesController(
-      countryRepository: countryRepository,
-    );
+    appController = appProvider.get<AppController>();
+    countriesController = countriesProvider.get<CountriesController>();
   }
 
   @override
@@ -39,8 +36,6 @@ class _CountriesViewState extends State<CountriesView> {
 
   @override
   Widget build(BuildContext context) {
-    appController = Provider.of<AppController>(context);
-
     return Material(
       child: SafeArea(
         child: Padding(

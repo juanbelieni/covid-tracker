@@ -1,7 +1,7 @@
 import 'package:covid_tracker/app/app_controller.dart';
+import 'package:covid_tracker/app/app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:provider/provider.dart';
 
 class TrackerView extends StatefulWidget {
   @override
@@ -11,10 +11,12 @@ class TrackerView extends StatefulWidget {
 class _TrackerViewState extends State<TrackerView> {
   late AppController appController;
 
+  _TrackerViewState() {
+    appController = appProvider.get<AppController>();
+  }
+
   @override
   Widget build(BuildContext context) {
-    appController = Provider.of<AppController>(context);
-
     return Material(
       child: Observer(
         builder: (context) {

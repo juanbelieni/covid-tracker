@@ -1,10 +1,9 @@
 import 'package:covid_tracker/app/app_controller.dart';
+import 'package:covid_tracker/app/app_provider.dart';
 import 'package:covid_tracker/app/countries/countries_view.dart';
 import 'package:covid_tracker/app/landing/landing_view.dart';
 import 'package:covid_tracker/app/tracker/tracker_view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppWidget extends StatefulWidget {
   @override
@@ -13,34 +12,45 @@ class AppWidget extends StatefulWidget {
 
 class _AppWidgetState extends State<AppWidget> {
   late AppController appController;
+  late Future loading;
 
-  _AppWidgetState() {
-    final prefsFuture = SharedPreferences.getInstance();
-    appController = AppController(prefsFuture: prefsFuture);
+  String get initialRoute =>
+      appController.selectedCountry == null ? '/landing' : '/tracker';
+
+  Future _load() async {
+    await appProvider.allReady();
+
+    appController = appProvider.get<AppController>();
+    await appController.retrieveSelectedCountry();
   }
 
   @override
   void initState() {
-    appController.retrieveSelectedCountry();
+    loading = _load();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<AppController>(
-          create: (context) => appController,
-        ),
-      ],
-      child: MaterialApp(
-        initialRoute: '/landing',
-        routes: {
-          '/landing': (context) => LandingView(),
-          '/countries': (context) => CountriesView(),
-          '/tracker': (context) => TrackerView(),
-        },
-      ),
+    return FutureBuilder(
+      future: loading,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+            initialRoute: initialRoute,
+            routes: {
+              '/landing': (context) => LandingView(),
+              '/countries': (context) => CountriesView(),
+              '/tracker': (context) => TrackerView(),
+            },
+          );
+        } else {
+          return Material(
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+      },
     );
   }
 }

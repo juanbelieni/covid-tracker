@@ -9,19 +9,17 @@ part 'app_controller.g.dart';
 class AppController = _AppController with _$AppController;
 
 abstract class _AppController with Store {
-  final Future<SharedPreferences> prefsFuture;
+  final SharedPreferences prefs;
 
   @observable
   Country? selectedCountry;
 
   _AppController({
-    required this.prefsFuture,
+    required this.prefs,
   });
 
   @action
   Future retrieveSelectedCountry() async {
-    final prefs = await this.prefsFuture;
-
     final countryJson = await prefs.getString('country');
     if (countryJson != null) {
       final countryMap = json.decode(countryJson) as Map<String, dynamic>;
@@ -31,8 +29,6 @@ abstract class _AppController with Store {
 
   @action
   Future selectCountry(Country country) async {
-    final prefs = await this.prefsFuture;
-
     final countryMap = country.toMap();
     final countryJson = json.encode(countryMap);
     await prefs.setString('country', countryJson);
