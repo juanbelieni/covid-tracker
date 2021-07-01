@@ -12,30 +12,24 @@ mixin _$CountriesController on _CountriesController, Store {
   final _$countriesAtom = Atom(name: '_CountriesController.countries');
 
   @override
-  ObservableFuture<List<Country>> get countries {
+  List<Country> get countries {
     _$countriesAtom.reportRead();
     return super.countries;
   }
 
   @override
-  set countries(ObservableFuture<List<Country>> value) {
+  set countries(List<Country> value) {
     _$countriesAtom.reportWrite(value, super.countries, () {
       super.countries = value;
     });
   }
 
-  final _$_CountriesControllerActionController =
-      ActionController(name: '_CountriesController');
+  final _$fetchCountriesAsyncAction =
+      AsyncAction('_CountriesController.fetchCountries');
 
   @override
-  void fetchCountries() {
-    final _$actionInfo = _$_CountriesControllerActionController.startAction(
-        name: '_CountriesController.fetchCountries');
-    try {
-      return super.fetchCountries();
-    } finally {
-      _$_CountriesControllerActionController.endAction(_$actionInfo);
-    }
+  Future<dynamic> fetchCountries() {
+    return _$fetchCountriesAsyncAction.run(() => super.fetchCountries());
   }
 
   @override

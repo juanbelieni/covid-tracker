@@ -24,21 +24,26 @@ mixin _$AppController on _AppController, Store {
     });
   }
 
-  final _$retrieveSelectedCountryAsyncAction =
-      AsyncAction('_AppController.retrieveSelectedCountry');
-
-  @override
-  Future<dynamic> retrieveSelectedCountry() {
-    return _$retrieveSelectedCountryAsyncAction
-        .run(() => super.retrieveSelectedCountry());
-  }
-
   final _$selectCountryAsyncAction =
       AsyncAction('_AppController.selectCountry');
 
   @override
   Future<dynamic> selectCountry(Country country) {
     return _$selectCountryAsyncAction.run(() => super.selectCountry(country));
+  }
+
+  final _$_AppControllerActionController =
+      ActionController(name: '_AppController');
+
+  @override
+  void retrieveSelectedCountry() {
+    final _$actionInfo = _$_AppControllerActionController.startAction(
+        name: '_AppController.retrieveSelectedCountry');
+    try {
+      return super.retrieveSelectedCountry();
+    } finally {
+      _$_AppControllerActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

@@ -16,7 +16,7 @@ class _CountriesViewState extends State<CountriesView> {
   late AppController appController;
   late CountriesController countriesController;
 
-  List<Country>? get countries => countriesController.countries.value;
+  List<Country> get countries => countriesController.countries;
 
   _CountriesViewState() {
     appController = appProvider.get<AppController>();
@@ -51,14 +51,14 @@ class _CountriesViewState extends State<CountriesView> {
               Expanded(
                 child: Observer(
                   builder: (context) {
-                    if (countries != null) {
+                    if (countries.length > 0) {
                       return ListView.builder(
-                        itemCount: countries!.length,
+                        itemCount: countries.length,
                         itemBuilder: (context, index) => Card(
                           margin: const EdgeInsets.only(bottom: 8),
                           child: InkWell(
                             onTap: () {
-                              selectCountry(context, countries![index]);
+                              selectCountry(context, countries[index]);
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8),
@@ -69,7 +69,7 @@ class _CountriesViewState extends State<CountriesView> {
                                     height: 32,
                                     child: ClipOval(
                                       child: Image.asset(
-                                        'assets/images/flags/${countries![index].code}.png',
+                                        'assets/images/flags/${countries[index].code}.png',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -80,14 +80,14 @@ class _CountriesViewState extends State<CountriesView> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        countries![index].name,
+                                        countries[index].name,
                                         style: GoogleFonts.poppins(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                       Text(
-                                        countries![index].continent,
+                                        countries[index].continent,
                                         style: GoogleFonts.poppins(
                                           fontSize: 14,
                                         ),

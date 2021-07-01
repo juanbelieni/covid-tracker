@@ -19,9 +19,8 @@ class _AppWidgetState extends State<AppWidget> {
 
   Future _load() async {
     await appProvider.allReady();
-
     appController = appProvider.get<AppController>();
-    await appController.retrieveSelectedCountry();
+    appController.retrieveSelectedCountry();
   }
 
   @override

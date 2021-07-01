@@ -19,8 +19,8 @@ abstract class _AppController with Store {
   });
 
   @action
-  Future retrieveSelectedCountry() async {
-    final countryJson = await prefs.getString('country');
+  void retrieveSelectedCountry() {
+    final countryJson = prefs.getString('country');
     if (countryJson != null) {
       final countryMap = json.decode(countryJson) as Map<String, dynamic>;
       this.selectedCountry = Country.fromMap(countryMap);

@@ -10,15 +10,14 @@ abstract class _CountriesController with Store {
   final ICountryRepository countryRepository;
 
   @observable
-  ObservableFuture<List<Country>> countries = ObservableFuture.value([]);
+  List<Country> countries = [];
 
   _CountriesController({
     required this.countryRepository,
   });
 
   @action
-  void fetchCountries() {
-    final future = countryRepository.getAllCountries();
-    this.countries = ObservableFuture(future);
+  Future fetchCountries() async {
+    countries = await countryRepository.getAllCountries();
   }
 }
