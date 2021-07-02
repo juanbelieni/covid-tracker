@@ -18,6 +18,7 @@ void main() {
       name: 'Brazil',
       code: 'br',
       continent: 'South America',
+      population: 100,
     );
   });
 
@@ -32,6 +33,7 @@ void main() {
     expect(appController.selectedCountry!.name, country.name);
     expect(appController.selectedCountry!.code, country.code);
     expect(appController.selectedCountry!.continent, country.continent);
+    expect(appController.selectedCountry!.population, country.population);
   });
 
   test('it should select country', () async {

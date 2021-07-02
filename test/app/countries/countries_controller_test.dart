@@ -16,6 +16,7 @@ void main() {
       name: 'Brazil',
       code: 'br',
       continent: 'South America',
+      population: 100,
     );
   });
 

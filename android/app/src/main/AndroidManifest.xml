@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.juanbelieni.covid_tracker">
-   <application
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
         android:label="covid_tracker"
         android:icon="@mipmap/ic_launcher">
         <activity

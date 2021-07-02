@@ -4,6 +4,7 @@ import 'package:covid_tracker/app/countries/countries_view.dart';
 import 'package:covid_tracker/app/landing/landing_view.dart';
 import 'package:covid_tracker/app/tracker/tracker_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class AppWidget extends StatefulWidget {
   @override
@@ -18,15 +19,14 @@ class _AppWidgetState extends State<AppWidget> {
       appController.selectedCountry == null ? '/landing' : '/tracker';
 
   Future _load() async {
-    await appProvider.allReady();
-    appController = appProvider.get<AppController>();
+    await GetIt.I.allReady();
+    appController = GetIt.I.get<AppController>();
     appController.retrieveSelectedCountry();
   }
 
   @override
   void initState() {
     loading = _load();
-
     super.initState();
   }
 

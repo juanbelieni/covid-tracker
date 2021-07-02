@@ -1,10 +1,9 @@
 import 'package:covid_tracker/app/app_controller.dart';
-import 'package:covid_tracker/app/app_provider.dart';
 import 'package:covid_tracker/app/countries/countries_controller.dart';
-import 'package:covid_tracker/app/countries/countries_provider.dart';
 import 'package:covid_tracker/domain/country/country_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CountriesView extends StatefulWidget {
@@ -19,8 +18,8 @@ class _CountriesViewState extends State<CountriesView> {
   List<Country> get countries => countriesController.countries;
 
   _CountriesViewState() {
-    appController = appProvider.get<AppController>();
-    countriesController = countriesProvider.get<CountriesController>();
+    appController = GetIt.I.get<AppController>();
+    countriesController = GetIt.I.get<CountriesController>();
   }
 
   @override
@@ -29,9 +28,9 @@ class _CountriesViewState extends State<CountriesView> {
     super.initState();
   }
 
-  selectCountry(BuildContext context, Country country) async {
+  _selectCountry(BuildContext context, Country country) async {
     await appController.selectCountry(country);
-    Navigator.of(context).pushReplacementNamed('/tracker');
+    await Navigator.of(context).pushReplacementNamed('/tracker');
   }
 
   @override
@@ -57,9 +56,8 @@ class _CountriesViewState extends State<CountriesView> {
                         itemBuilder: (context, index) => Card(
                           margin: const EdgeInsets.only(bottom: 8),
                           child: InkWell(
-                            onTap: () {
-                              selectCountry(context, countries[index]);
-                            },
+                            onTap: () =>
+                                _selectCountry(context, countries[index]),
                             child: Padding(
                               padding: const EdgeInsets.all(8),
                               child: Row(

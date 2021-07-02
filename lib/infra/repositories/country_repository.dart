@@ -17,11 +17,14 @@ class CountryRepository implements ICountryRepository {
         .where((map) => map['All'] != null)
         .map((map) => map['All'])
         .where((map) => map['abbreviation'] != null)
-        .map((map) => Country.fromMap({
-              'code': (map['abbreviation'] as String).toLowerCase(),
-              'name': map['country'],
-              'continent': map['continent'],
-            }))
+        .map(
+          (map) => Country(
+            code: (map['abbreviation'] as String).toLowerCase(),
+            name: map['country'],
+            continent: map['continent'],
+            population: map['population'],
+          ),
+        )
         .toList();
 
     countries
