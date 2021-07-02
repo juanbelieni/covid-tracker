@@ -18,6 +18,8 @@ abstract class _CountriesController with Store {
 
   @action
   Future fetchCountries() async {
-    countries = await countryRepository.getAllCountries();
+    if (countries.length == 0) {
+      countries = await countryRepository.getAllCountries();
+    }
   }
 }

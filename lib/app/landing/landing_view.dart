@@ -57,15 +57,24 @@ class LandingView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 16),
-                      ClipOval(
-                        child: Container(
-                          color: Color(0xFF9156EC),
-                          child: IconButton(
-                            icon: Icon(Icons.arrow_right_alt),
+                      SizedBox(
+                        width: 48,
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed('/countries');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Color(0xFF9156EC),
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward,
                             color: Colors.white,
-                            onPressed: () {
-                              Navigator.of(context).pushReplacementNamed('/countries');
-                            },
+                            size: 24,
                           ),
                         ),
                       ),

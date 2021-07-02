@@ -64,14 +64,11 @@ class _CountriesViewState extends State<CountriesView> {
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
-                                  SizedBox(
-                                    width: 32,
-                                    height: 32,
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        'assets/images/flags/${countries[index].code}.png',
-                                        fit: BoxFit.cover,
-                                      ),
+                                  ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/flags/${countries[index].code}.png',
+                                      width: 32,
+                                      height: 32,
                                     ),
                                   ),
                                   SizedBox(width: 16),

@@ -37,6 +37,7 @@ class _AppWidgetState extends State<AppWidget> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             initialRoute: initialRoute,
             routes: {
               '/landing': (context) => LandingView(),
