@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "covid_tracker")
+set(BINARY_NAME "Covid Tracker")
 set(APPLICATION_ID "com.juanbelieni.covid_tracker")
 
 cmake_policy(SET CMP0063 NEW)

@@ -2,7 +2,7 @@
     package="com.juanbelieni.covid_tracker">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="covid_tracker"
+        android:label="Covid Tracker"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
