@@ -9,7 +9,7 @@
 
 ## Project
 
-This project was made following concepts of DDD and Clean Architecture. The source code (inside lib) is divides in:
+This project was made following concepts of DDD and Clean Architecture. The source code (inside lib) is divided in:
 
 - `app`: views, components, controllers and other things related to the presentation layer.
 - `domain`: entities and repositories specifications.
